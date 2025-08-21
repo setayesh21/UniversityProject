@@ -22,8 +22,8 @@ Features
 ______________________________
 
 Technologies
--Python 3
--Django 5
+-Python 
+-Django 
 -Bootstrap 
 -SQLite (default database)
 
@@ -102,4 +102,3 @@ Project Structure
 
  ______________________________
 
- 
