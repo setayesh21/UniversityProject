@@ -21,7 +21,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-#__________________________
+#--------------------
 # registration
 # models.py
 
@@ -77,7 +77,7 @@ class StudentCourse(models.Model):
     def __str__(self):
         return f"{self.student} -> {self.course}"
 
-#__________________________
+#--------------------
 # registration
 # admin.py
 
@@ -109,7 +109,7 @@ class StudentCourseAdmin(admin.ModelAdmin):
     list_display = ("student", "course")
     search_fields = ("student__ID", "course__code", "course__name")
 
-#__________________________
+#--------------------
 # registration
 # forms.py
 
@@ -134,7 +134,7 @@ class EmployeeForm(forms.ModelForm):
 class StudentLookupForm(forms.Form):
     student_id = forms.CharField(label="Student ID", max_length=50)
 
-#__________________________
+#--------------------
 # registration
 # views.py
 
@@ -252,7 +252,7 @@ def ajax_search(request):
                 results.append(str(obj))
     return JsonResponse({"results": results})
 
-#__________________________
+#--------------------
 # registration
 # urls.py
 
@@ -271,3 +271,147 @@ urlpatterns = [
     path('ajax_search/', views.ajax_search, name='ajax_search'),
 ]
 
+#--------------------
+# registration/ templates
+# base.html
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>University Registration System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="container py-4">
+  <h1 class="mb-4">University Registration System</h1>
+  <nav class="mb-3 d-flex gap-2 flex-wrap">
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'home' %}">Home</a>
+    <a class="btn btn-outline-secondary btn-sm" href="{% url 'list_people' %}">People</a>
+    <a class="btn btn-primary btn-sm" href="{% url 'student_register_course' %}">Student Portal</a>
+  </nav>
+
+  {% if messages %}
+  <div class="my-2">
+    {% for message in messages %}
+      <div class="alert alert-{{ message.tags }} mb-2">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>
+
+#--------------------
+# registration/ templates
+# home.html
+
+{% extends "registration/base.html" %}
+{% block content %}
+<p>Welcome! Use the Student Portal to enroll in courses.</p>
+{% endblock %}
+
+#--------------------
+# registration/ templates
+# list.html
+
+{% extends "registration/base.html" %}
+{% block content %}
+<h2>People</h2>
+<h4>Students</h4>
+<ul>{% for s in students %}<li>{{ s }}</li>{% empty %}<li>None</li>{% endfor %}</ul>
+<h4>Teachers</h4>
+<ul>{% for t in teachers %}<li>{{ t }}</li>{% empty %}<li>None</li>{% endfor %}</ul>
+<h4>Employees</h4>
+<ul>{% for e in employees %}<li>{{ e }}</li>{% empty %}<li>None</li>{% endfor %}</ul>
+{% endblock %}
+
+#--------------------
+# registration/ templates
+# my_course.html
+
+{% extends "registration/base.html" %}
+{% block content %}
+<h2>My Courses</h2>
+<p><strong>{{ student.fname }} {{ student.lname }}</strong> (ID: {{ student.ID }})</p>
+
+<ul class="list-group mb-3">
+  {% for c in courses %}
+    <li class="list-group-item">{{ c.code }} – {{ c.name }} ({{ c.day_of_week }} {{ c.start_time }}–{{ c.end_time }})</li>
+  {% empty %}
+    <li class="list-group-item">No courses registered yet.</li>
+  {% endfor %}
+</ul>
+
+<a class="btn btn-primary" href="{% url 'student_register_course' %}">Register More Courses</a>
+{% endblock %}
+
+#--------------------
+# registration/ templates
+# checkout.html
+
+{% extends "registration/base.html" %}
+{% block content %}
+<h2>Checkout</h2>
+<p><strong>Student:</strong> {{ student.fname }} {{ student.lname }} (ID: {{ student.ID }})</p>
+<p><strong>Course:</strong> {{ course.name }} — {{ course.day_of_week }} {{ course.start_time }}–{{ course.end_time }}</p>
+
+<form method="post" class="d-flex gap-2">
+  {% csrf_token %}
+  <button type="submit" name="action" value="success" class="btn btn-success">Payment Successful</button>
+  <button type="submit" name="action" value="fail" class="btn btn-danger">Payment Failed</button>
+</form>
+{% endblock %}
+
+#--------------------
+# registration/ templates
+# student_register.html
+
+{% extends "registration/base.html" %}
+{% block content %}
+<h2>Student Course Registration</h2>
+
+<form method="post" class="row g-3 mb-4">
+  {% csrf_token %}
+  <div class="col-auto">
+    {{ form.student_id.label_tag }}
+    {{ form.student_id }}
+  </div>
+  <div class="col-auto align-self-end">
+    <button type="submit" class="btn btn-success">Continue</button>
+  </div>
+</form>
+
+{% if student_valid %}
+  <div class="mb-3">
+    <strong>Student:</strong> {{ student.fname }} {{ student.lname }} (ID: {{ student.ID }})
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Code</th><th>Name</th><th>Time</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for course in courses %}
+        <tr>
+          <td>{{ course.code }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.day_of_week }} {{ course.start_time }} - {{ course.end_time }}</td>
+          <td>
+            <a class="btn btn-primary btn-sm" href="{% url 'checkout_course' student_id=student.ID course_id=course.id %}">Checkout</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No courses available.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p class="text-muted">Enter your Student ID to see available courses and proceed to checkout.</p>
+{% endif %}
+{% endblock %}
