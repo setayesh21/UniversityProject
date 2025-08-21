@@ -9,14 +9,14 @@ simulated payment system.
 
 ______________________________
 
-Features
-**Student Management (registration, login/logout, profile)
-**Course Management (add, edit, delete by admin)
-**Course Enrollment by Student
-**Schedule Conflict Detection
-**Student Weekly Timetable
-**Payment Module (simulated: success/failure)
-**Django Admin Panel (for full management)
+Features  
+**Student Management (registration, login/logout, profile
+**Course Management (add, edit, delete by admin)  
+**Course Enrollment by Student  
+**Schedule Conflict Detection  
+**Student Weekly Timetable  
+**Payment Module (simulated: success/failure)  
+**Django Admin Panel (for full management)  
 **Authentication & Roles (Admin/ Student)
 
 ______________________________
