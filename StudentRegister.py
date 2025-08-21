@@ -572,3 +572,49 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('registration.urls')),
 ]
+
+#----------------
+# seed_data.py
+
+import django
+import os, sys
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "university_project.settings")
+django.setup()
+
+from registration.models import Student, Course
+from datetime import time
+
+Student.objects.all().delete()
+Course.objects.all().delete()
+
+students = [
+    {"ID" : "ali123", "fname" : "Ali", "lname" : "Ahmadi",
+     "DoB" : "2000-01-14", "major" : "CS"},
+    {"ID" : "sara456", "fname" : "Sara", "lname" : "Hosseini",
+     "DoB" : "2002-05-10", "major" : "Physics"},
+]
+
+for s in students:
+    Student.objects.create(**s)
+
+
+courses = [
+    {"code" : "CS101", "name" : "Intro to CS",
+      "day_of_week" : "Mon", "start_time" : time(8,0), "end_time" : time(10,0)},
+    {"code" : "MATH201", "name" : "Calculus I",
+      "day_of_week" : "Mon", "start_time" : time(10,0), "end_time" : time(12,0)},
+    {"code" : "PHYS301", "name" : "Physics",
+      "day_of_week" : "Tue", "start_time" : time(8,0), "end_time" : time(10,0)},
+    {"code" : "HIST101", "name" : "World History",
+      "day_of_week" : "Sat", "start_time" : time(12,0), "end_time" : time(14,0)},
+
+]
+
+for c in courses:
+    Course.objects.create(**c)
+
+print("sample students and courses created successfully!")
