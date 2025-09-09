@@ -87,7 +87,7 @@ Project Structure
  │── db.sqlite3  #Defualt database  
  │── registration/  #Main app (student, courses, enrollment)   
    ''' │── admin.py''''  
-   '''' │── models.py'''  
+   ''' │── models.py'''  
    │── views.py  
    │── forms.py  
    │── magrations/  
