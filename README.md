@@ -85,8 +85,8 @@ Project Structure
  university_project  
  │── manage.py  #Django management script  
  │── db.sqlite3  #Defualt database  
- │── registration/  #Main app (student, courses, enrollment)  
-   │── admin.py  
+ │── registration/  #Main app (student, courses, enrollment)   
+ │── admin.py  
    │── models.py  
    │── views.py  
    │── forms.py  
