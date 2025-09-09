@@ -87,16 +87,16 @@ Project Structure
  │── db.sqlite3  #Defualt database  
  │── registration/  #Main app (student, courses, enrollment)  
  '''│── admin.py  
- │── models.py  
- │── views.py  
- │── forms.py  
- │── magrations/  
- │── templates/ #HTML templates(Bootstrap-based)  
- │── ...  '''
+    │── models.py  
+    │── views.py  
+    │── forms.py  
+    │── magrations/  
+    │── templates/ #HTML templates(Bootstrap-based)  
+    │── ...  '''  
  │── university_project/  #Project Setting  
-   │── setting.py  
-   │── urls.py  
-   │── ...  
+ '''│── setting.py  
+    │── urls.py  
+    │── ...  '''
  │── venv/  
  │── seed_data.py
 
