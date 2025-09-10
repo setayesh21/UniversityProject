@@ -80,30 +80,30 @@ ______________________________
 
 ______________________________
 
-university_registration/
-│
-├── university_registration/   #Setting Project
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-│
-├── registration/             # اپلیکیشن اصلی
-│   ├── migrations/
-│   ├── templates/
-│   │   └── registration/
-│   │       ├── base.html
-│   │       ├── home.html
-│   │       ├── list.html
-│   │       ├── add_person.html
-│   │       ├── deregister_person.html
-│   │       └── search.html
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── forms.py
-│   ├── models.py
-│   ├── urls.py
-│   └── views.py
-│
+university_registration/  
+│  
+├── university_registration/   #Setting Project  
+│   ├── __init__.py  
+│   ├── settings.py  
+│   ├── urls.py  
+│   └── wsgi.py  
+│  
+├── registration/             # اپلیکیشن اصلی  
+│   ├── migrations/  
+│   ├── templates/  
+│   │   └── registration/  
+│   │       ├── base.html  
+│   │       ├── home.html  
+│   │       ├── list.html  
+│   │       ├── add_person.html  
+│   │       ├── deregister_person.html  
+│   │       └── search.html  
+│   ├── __init__.py  
+│   ├── admin.py  
+│   ├── apps.py  
+│   ├── forms.py  
+│   ├── models.py  
+│   ├── urls.py  
+│   └── views.py  
+│  
 └── manage.py
