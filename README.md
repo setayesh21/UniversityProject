@@ -82,22 +82,22 @@ ______________________________
 
 university_registration/  
 │  
-├── university_registration/   #Setting Project  
+├── university_registration/   # Setting Project  
 │   ├── __init__.py  
 │   ├── settings.py  
 │   ├── urls.py  
 │   └── wsgi.py  
 │  
-├── registration/             # اپلیکیشن اصلی  
+├── registration/             # Main application  
 │   ├── migrations/  
 │   ├── templates/  
 │   │   └── registration/  
 │   │       ├── base.html  
 │   │       ├── home.html  
 │   │       ├── list.html  
-│   │       ├── add_person.html  
-│   │       ├── deregister_person.html  
-│   │       └── search.html  
+│   │       ├── student_register.html  
+│   │       ├── my_courses.html  
+│   │       └── checkout.html  
 │   ├── __init__.py  
 │   ├── admin.py  
 │   ├── apps.py  
